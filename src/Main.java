@@ -13,6 +13,7 @@ public class Main {
     ) {
         List<? extends T> list = stream.sorted(order).collect(Collectors.toList());
         minMaxConsumer.accept(list.get(0), list.get(list.size()-1));
+        Stream.empty();
     }
     public static void main(String[] args) {
 
