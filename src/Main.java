@@ -11,14 +11,21 @@ public class Main {
             Comparator<? super T> order,
             BiConsumer<? super T, ? super T> minMaxConsumer
     ) {
-        List<? extends T> list = stream.sorted(order).collect(Collectors.toList());
-        minMaxConsumer.accept(list.get(0), list.get(list.size()-1));
-        Stream.empty();
+        T min = null;
+        T max = null;
+        List<? extends T> list =
+                stream.sorted(order).
+                        collect(Collectors.toList());
+        if (list.size() != 0) {
+            min = list.get(0);
+            max = list.get(list.size()-1);
+        }
+        minMaxConsumer.accept(min,max);
     }
     public static void main(String[] args) {
 
 
-        findMinMax(Stream.of(12,55,632,-5,198,502),Integer::compareTo,(min,max)-> System.out.println("Min: "+min + ", Max: " + max));
+        findMinMax(Stream.of(),Integer::compareTo,(min,max)-> System.out.println("Min: "+min + ", Max: " + max));
 
         evenNumbers(List.of(1,2,3,4,5,6,7,8,9,10,11,12));
 
